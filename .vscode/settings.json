@@ -1,5 +1,9 @@
 {
     "cSpell.words": [
         "ipywidgets"
+    ],
+    "python.analysis.extraPaths": [
+        "./src/data",
+        "./src/visualization"
     ]
 }
