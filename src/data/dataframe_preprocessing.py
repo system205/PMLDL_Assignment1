@@ -1,5 +1,8 @@
 '''This module contains statistical preprocessing for a dataframe'''
 
+import re
+
+
 def swap_ref_trn(row):
     ''' It swaps the translation text and score with the reference one if 
         the toxicity of reference is lower the one of translation'''
@@ -25,12 +28,12 @@ def round_columns(dataframe):
 def add_ref_trn_length(dataframe):
     dataframe['ref_length'] = dataframe['reference'].apply(len)
     dataframe['trn_length'] = dataframe['translation'].apply(len)
-    
+
     return dataframe
 
 def calculate_ref_trn_length(dataframe):
     dataframe['length_difference'] = (dataframe['ref_length'] - dataframe['trn_length']).apply(abs)
-    
+
     return dataframe
 
 def preprocess(dataframe):
@@ -45,3 +48,17 @@ def preprocess(dataframe):
     dataframe = calculate_ref_trn_length(dataframe)
     return dataframe
 
+
+def remove_unknowns(dataframe):
+    pattern = re.compile(r'^[a-z ]+$')
+    bools = []
+
+    for row in dataframe.values:
+        ref, trn = row[0], row[1]
+        if re.fullmatch(pattern, ref) and re.fullmatch(pattern, trn):
+            bools.append(True)
+        else:
+            bools.append(False)
+
+    print(len(dataframe[bools]))
+    return dataframe[bools]
