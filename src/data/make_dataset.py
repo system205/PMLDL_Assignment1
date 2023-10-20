@@ -18,7 +18,3 @@ def load_dataframe(extracted_dir = '../../data/raw/', tsv_file_name = 'filtered.
     dataframe = pd.read_csv(tsv_file_path, delimiter='\t')
 
     return dataframe.drop(columns=['Unnamed: 0'])
-
-
-def create_intermediate_data():
-    pass
