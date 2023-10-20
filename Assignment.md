@@ -10,9 +10,9 @@ Your assignment is to create a solution for detoxing text with high level of tox
 
 ## Data Labeling
 
-Level of Toxicity is labeled with annotating binary classification by people. Text is passed to annotators for them to put specific label toxic/non-toxic. Then number of positive / toxic assesments are divided by the total number of annotators. This process is performed for every entry in the data, resulting in toxicity dataset.
+Level of Toxicity is labeled with annotating binary classification by people. Text is passed to annotators for them to put specific label toxic/non-toxic. Then number of positive / toxic assessments are divided by the total number of annotators. This process is performed for every entry in the data, resulting in toxicity dataset.
 
-By this process, we have text with toxicity level. However, for training the model it is best to have sample with high toxicity level and its paraphrazed version with low toxicity level. This gives an opportunity for the model to distiguish from the overall meaning of the text and concentrate on decreasing the level of toxicity (dirung the training process). That is why the data that is provided for you has the pair structure. Dataset structure is described in next section.
+By this process, we have text with toxicity level. However, for training the model it is best to have sample with high toxicity level and its paraphrased version with low toxicity level. This gives an opportunity for the model to distinguish from the overall meaning of the text and concentrate on decreasing the level of toxicity (during the training process). That is why the data that is provided for you has the pair structure. Dataset structure is described in next section.
 
 ## Data Description
 
@@ -20,24 +20,24 @@ The dataset is a subset of the ParaNMT corpus (50M sentence pairs). The filtered
 
 The data is given in the `.tsv` format, means columns are separated by `\t` symbol.
 
-| Column | Type | Discription | 
+| Column | Type | Description |
 | ----- | ------- | ---------- |
-| reference | str | First item from the pair | 
-| ref_tox | float | toxicity level of reference text | 
-| translation | str | Second item from the pair - paraphrazed version of the reference|
+| reference | str | First item from the pair |
+| ref_tox | float | toxicity level of reference text |
+| translation | str | Second item from the pair - paraphrased version of the reference|
 | trn_tox | float | toxicity level of translation text |
 | similarity | float | cosine similarity of the texts |
 | lenght_diff | float | relative length difference between texts |
 
-## Evaluation criterias
+## Evaluation criteria
 
-This assignment is on creating the solution, not on evaluating your algorithm. Major part of the grade will be dedicated to the structure of the solution, your development choices and your explonation on how you approached the problem.
+This assignment is on creating the solution, not on evaluating your algorithm. Major part of the grade will be dedicated to the structure of the solution, your development choices and your explanation on how you approached the problem.
 
 Submission should be a link to GitHub repository. It should be open repository, so that the course team could assess it easily.
 
 The structure of the repository should has the following structure:
 
-```
+```md
 text-detoxification
 ├── README.md # The top-level README
 │
@@ -50,7 +50,7 @@ text-detoxification
 │
 ├── notebooks    #  Jupyter notebooks. Naming convention is a number (for ordering),
 │                   and a short delimited description, e.g.
-│                   "1.0-initial-data-exporation.ipynb"            
+│                   "1.0-initial-data-exploration.ipynb"            
 │ 
 ├── references   # Data dictionaries, manuals, and all other explanatory materials.
 │
@@ -72,8 +72,7 @@ text-detoxification
         └── visualize.py
 ```
 
-
-In the top `README.md` file put your name, email and group number. Additionaly, put basic commands how to use your repository. How to transform data, train model and make a predictions.
+In the top `README.md` file put your name, email and group number. Additionally, put basic commands how to use your repository. How to transform data, train model and make a predictions.
 
 In the `reports` directory create at least two report about your work. In the **first report**, describe your path in solution creation process. List any architectures, ideas, problems and data that leads to your final solution. In the **second report**, describe your final solution.
 
@@ -81,7 +80,7 @@ In the `notebooks` directory put at least two notebooks. **First notebook** shou
 
 In the `src` directory you should put all the code that is used for the final solution. Provide the script for creation intermediate data in `src/data/`. Provide `train` and `prediction` scripts in `src/models`. Provide visualization script in `src/visualization/`.
 
-## Grading criterias
+## Grading criteria
 
 Full assignment without any problems is said to be the `100%` solution.
 
@@ -89,16 +88,17 @@ Full assignment without any problems is said to be the `100%` solution.
 | ---- | ----- | ----- |
 | Structure and code quality | 25 | Code quality, structure, comments, clean repo, commit history, reproducibility (manual seeding) |
 | Visualization, notebooks quality | 10 | Jupyter notebooks, visualizations |
-| Solution building | 40 |  Solution exploration, references, ideas decription, final report structure |
+| Solution building | 40 |  Solution exploration, references, ideas description, final report structure |
 | Final score, evaluation  | 15 | Evaluation function, final score, quality of results |
-| Usability, documentation | 10 | Docstrings, arguments parsing, README |
+| Usability, documentation | 10 | Docstring, arguments parsing, README |
 
-If **PMLDL Course Team** will have any questions about your assignment or your work fails to show your results you will be called solution defence procedure. 
+If **PMLDL Course Team** will have any questions about your assignment or your work fails to show your results you will be called solution defense procedure.
 
 ## Report Examples
-### Solution Bulding Report Example
 
-```
+### Solution Building Report Example
+
+```md
 # Baseline: Dictionary based
 ...
 # Hypothesis 1: Custom embeddings
@@ -113,7 +113,7 @@ If **PMLDL Course Team** will have any questions about your assignment or your w
 
 ### Final Solution Report Example
 
-```
+```md
 # Introduction
 ...
 # Data analysis
