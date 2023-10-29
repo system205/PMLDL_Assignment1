@@ -34,5 +34,5 @@ if __name__ == "__main__":
         print('You have to provide root path')
         exit(1)
         
-    train(args.root) 
+    train(args.root)
     
