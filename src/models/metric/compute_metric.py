@@ -6,10 +6,11 @@ import argparse
 def evaluate_dataframe(dataframe_file, predictions_column='predictions', separator=','):
     metric = evaluate.load("sacrebleu")
     dataframe = pd.read_csv(dataframe_file, sep=separator)
+    references = list(dataframe['reference'])
     translations = list(dataframe['translation'])
     predictions = list(dataframe[predictions_column])
     
-    print('\n(Translation, Prediction)', *zip(translations[-5:], predictions[-5:]), sep='\n')
+    print('\n(Translation (target), Prediction (output), Reference (input))', *zip(translations[-5:], predictions[-5:], references[-5:]), sep='\n')
     
     score = metric.compute(predictions=predictions, references=translations)
     print(f'Computed sacrebleu: {score}')

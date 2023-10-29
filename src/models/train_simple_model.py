@@ -1,5 +1,13 @@
 import sys
-sys.path.append('/workspaces/PMLDL_Assignment1') # TODO get project source path
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--root")
+parser.add_argument('--project_path')
+args = parser.parse_args()
+
+sys.path.append(args.project_path)
+
 from src.data.make_dataset import load_train
 from urllib.request import urlopen
 from src.data.analysis.analyze import get_toxic_words
@@ -20,7 +28,11 @@ def train(root="../../"):
     for word in all_toxic_words:
         file.write(word+'\n')
     file.close()
-
-
-train('../') # TODO specify root
+    
+if __name__ == "__main__":
+    if (args.root is None):
+        print('You have to provide root path')
+        exit(1)
+        
+    train(args.root) 
     

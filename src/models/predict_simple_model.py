@@ -1,3 +1,4 @@
+import argparse
 import pandas as pd
 
 
@@ -21,8 +22,18 @@ def predict(dataframe_file, root='../../'):
     test_dataframe['predictions'] = translations
     test_dataframe.to_csv(dataframe_file, index=False)
     
-    print(pd.read_csv(dataframe_file))
+    # print(pd.read_csv(dataframe_file))
     
     
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dataframe_file")
+    parser.add_argument("--root")
+    args = parser.parse_args()
     
-predict( '../data/interim/val.csv', '../')
+    if (args.dataframe_file is None or args.root is None):
+        print("You have to provide dataframe_file and root")
+        exit(1)
+        
+        
+    predict(args.dataframe_file, args.root)
