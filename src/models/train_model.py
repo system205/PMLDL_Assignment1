@@ -57,6 +57,7 @@ def train(train_dataframe, valid_dataframe, save_dir="output_dir/"):
         save_total_limit=3,
         num_train_epochs=45,
         predict_with_generate=True,
+        disable_tqdm=True,
         # fp16=True,
         report_to='tensorboard',
     )
