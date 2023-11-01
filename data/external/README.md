@@ -1,0 +1,1 @@
+### This folder will contain ```toxic_words.txt``` and ```weights.zip``` when running all notebooks
