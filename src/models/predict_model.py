@@ -23,7 +23,7 @@ def download_weights(root='../../'):
         print("Failed to download the zip file.")
 
     with zipfile.ZipFile(f"{root}data/external/weights.zip", "r") as zip_ref:
-        zip_ref.extractall(f'{root}output_dir/')
+        zip_ref.extractall(f'{root}models/')
 
     os.remove(f"{root}data/external/weights.zip")
 
@@ -35,7 +35,7 @@ def predict(root, texts: list[str]):
     
     prefix = "paraphrase from toxic to neutral: "
 
-    checkpoint = f'{root}output_dir/trained_model'
+    checkpoint = f'{root}models/trained_model'
 
     tokenizer = AutoTokenizer.from_pretrained(checkpoint)
     model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint)
