@@ -1,12 +1,17 @@
+'''This module used for downloading initial dataset and loading trained and validation datasets'''
+
 import zipfile
 import os
 import pandas as pd
 
-def unzip_dataset(root, zip_file_path = 'data/raw/filtered_paranmt.zip', extracted_dir = 'data/raw/'):
+def unzip_dataset(root, zip_file_path = 'data/raw/filtered_paranmt.zip', 
+                  extracted_dir = 'data/raw/'):
+    '''Helper function - unzip the dataset'''
     with zipfile.ZipFile(root+zip_file_path, 'r') as zip_ref:
         zip_ref.extractall(root+extracted_dir)
 
 def load_dataframe(root, extracted_dir = 'data/raw/', tsv_file_name = 'filtered.tsv' ):
+    '''Returns dataframe of the dataset'''
     # Construct the full path to the TSV file
     tsv_file_path = os.path.join(root+extracted_dir, tsv_file_name)
 
@@ -21,7 +26,9 @@ def load_dataframe(root, extracted_dir = 'data/raw/', tsv_file_name = 'filtered.
 
 
 def load_train(root, train_filename='data/interim/train.csv'):
+    '''Returns train dataframe'''
     return pd.read_csv(root+train_filename)
 
 def load_validation(root, train_filename='data/interim/val.csv'):
+    '''Returns validation dataframe'''
     return pd.read_csv(root+train_filename)
