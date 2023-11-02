@@ -28,7 +28,7 @@ def download_weights(root='../../'):
     os.remove(f"{root}data/external/weights.zip")
 
 def predict(root, texts: list[str]):
-    if not os.path.exists(f"{root}output_dir/trained_model/pytorch_model.bin"):
+    if not os.path.exists(f"{root}models/trained_model/pytorch_model.bin"):
         download_weights(root)
     
     texts = [simple_text_preprocessing(text) for text in texts]
@@ -40,6 +40,7 @@ def predict(root, texts: list[str]):
     tokenizer = AutoTokenizer.from_pretrained(checkpoint)
     model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint)
 
+    trns = []
     for text in texts:
         t = prefix + text
         inputs = tokenizer(t, return_tensors="pt").input_ids
@@ -48,3 +49,8 @@ def predict(root, texts: list[str]):
 
         translation = tokenizer.decode(outputs[0], skip_special_tokens=True)
         print(f'Translation: {translation} | Input: {text}')
+        trns.append(translation)
+
+    return trns
+
+    
