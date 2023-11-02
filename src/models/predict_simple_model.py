@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def predict(dataframe_file, root='../../'):
-    text_file = open(f"{root}/data/external/toxic_words.txt", "r")
+    text_file = open(f"{root}data/external/toxic_words.txt", "r")
     bad_words = text_file.read().split('\n')[:-1]
     text_file.close()
     
