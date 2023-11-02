@@ -31,9 +31,11 @@ def remove_multiple_spaces(text: str):
     return without_doublespace
 
 def simple_text_preprocessing(text: str):
+    '''Combines all text preprocessing steps together'''
     return remove_multiple_spaces(remove_punctuation(remove_numbers(lower_text(text))))
 
 def simple_row_preprocessing(row):
+    '''Preprocess a row with text preprocessing'''
     row['translation'] = simple_text_preprocessing(row['translation'])
     row['reference'] = simple_text_preprocessing(row['reference'])
     return row
@@ -60,18 +62,3 @@ def clean_data(sentence):
     _without_sw = remove_stop_words(_tokenized)
     _stemmed = stem_words(_without_sw)
     return _stemmed
-
-# def clean_dataframe(df, filename='cleaned.csv', dir='../data/interim/', override=False):
-#     file = os.path.join(dir, filename)
-
-#     # Check cache
-#     if (os.path.exists(file) and not override):
-#         return pd.read_csv(file)
-    
-#     df['reference'] = df['reference'].apply(lambda s: clean_data(s))
-#     df['translation'] = df['translation'].apply(lambda s: clean_data(s))
-
-#     # Cache version
-#     df.to_csv(file, index=False)
-
-#     return df

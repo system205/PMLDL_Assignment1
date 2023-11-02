@@ -50,6 +50,7 @@ def preprocess(dataframe):
 
 
 def remove_unknowns(dataframe):
+    '''It removes rows that has not english letters'''
     pattern = re.compile(r'^[a-z ]+$')
     bools = []
 

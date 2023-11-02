@@ -1,6 +1,10 @@
+'''Dataset analysis'''
 from collections import Counter
 
 def get_toxic_words(dataframe, log=True) -> Counter:
+    '''It takes a pd.Dataframe and returns the difference
+    in sets of words of toxic (reference) sentences and translation.
+    Meaning it extracts the toxic words that are not used in translation'''
     toxic_words = Counter()
     for sent in dataframe['reference']:
         toxic_words.update(sent.split(" "))

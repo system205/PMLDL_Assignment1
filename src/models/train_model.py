@@ -1,3 +1,4 @@
+'''The whole pipeline of training the final solution'''
 import argparse
 from datasets import Dataset
 from transformers import DataCollatorForSeq2Seq, AutoModelForSeq2SeqLM, \
@@ -10,24 +11,28 @@ PREFIX = "paraphrase from toxic to neutral: "
 
 CHECKPOINT = "t5-small"
 
+# Load not trained model, metric and data colator
 tokenizer = AutoTokenizer.from_pretrained(CHECKPOINT)
 model = AutoModelForSeq2SeqLM.from_pretrained(CHECKPOINT)
 data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=CHECKPOINT)
 metric = evaluate.load("sacrebleu")
 
 def preprocess_function(examples):
+    '''Tokenizes the input data'''
     inputs = [PREFIX + example for example in examples["reference"]]
     targets = examples["translation"]
     model_inputs = tokenizer(inputs, text_target=targets, max_length=128, truncation=True)
     return model_inputs
 
 def postprocess_text(preds, labels):
+    '''Strips the data'''
     preds = [pred.strip() for pred in preds]
     labels = [[label.strip()] for label in labels]
 
     return preds, labels
 
 def compute_metrics(eval_preds):
+    '''Decodes the data and comput bleu metric on it'''
     preds, labels = eval_preds
     if isinstance(preds, tuple):
         preds = preds[0]
@@ -47,6 +52,10 @@ def compute_metrics(eval_preds):
     return result
 
 def train(train_dataframe, valid_dataframe, save_dir="output_dir/"):
+    '''Train the model with train_dataframe with validation on valid_dataframe
+    Saves the output to the save_dir and trained model to save_dir/trained_model'''
+
+    # Define training arguments
     training_args = Seq2SeqTrainingArguments(
         output_dir=save_dir,
         evaluation_strategy="epoch",
@@ -58,13 +67,14 @@ def train(train_dataframe, valid_dataframe, save_dir="output_dir/"):
         num_train_epochs=45,
         predict_with_generate=True,
         disable_tqdm=True,
-        # fp16=True,
         report_to='tensorboard',
     )
 
+    # Cast to dataset type
     train_dataset = Dataset.from_pandas(train_dataframe).map(preprocess_function, batched=True)
     val_dataset = Dataset.from_pandas(valid_dataframe).map(preprocess_function, batched=True)
 
+    # Prepare trainer
     trainer = Seq2SeqTrainer(
         model=model,
         args=training_args,

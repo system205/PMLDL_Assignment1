@@ -5,3 +5,4 @@ output
 output_dir
 *.txt
 trained_model
+.vscode

@@ -11,7 +11,8 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 def visualize(dataframe, output_file_path="./"):
     '''Plots histograms of lenght_diff, similarity and ref_tox of a dataframe
-        reference_length, translation_length, difference_length'''
+        reference_length, translation_length, difference_length
+        And saves the figure to output_file_path/dataset_visualization.png'''
     nrows, ncols = 3,3
     
     _, axis = plt.subplots(nrows, ncols, figsize=(20, 10))

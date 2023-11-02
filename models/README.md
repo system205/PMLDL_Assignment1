@@ -1,5 +1,6 @@
 In this folder the weights of the trained model are to be stored after you download with:
 ```py
+    # Weights from release
     url = 'https://github.com/system205/PMLDL_Assignment1/releases/download/final-solution/trained_model.zip'
 
     response = requests.get(url, timeout=100000)

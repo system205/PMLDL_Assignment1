@@ -1,8 +1,10 @@
+'''Inference with simple hypothesis of removing the swearing words'''
 import argparse
 import pandas as pd
 
 
 def predict(dataframe_file, root='../../'):
+    '''Loads toxic words and filters the input references in dataframe making the predictions column'''
     text_file = open(f"{root}data/external/toxic_words.txt", "r")
     bad_words = text_file.read().split('\n')[:-1]
     text_file.close()

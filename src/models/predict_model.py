@@ -1,3 +1,4 @@
+'''Make inference on the trained model'''
 import argparse
 import sys
 import os
@@ -13,6 +14,7 @@ sys.path.append(parent_dir)
 from data.text_preprocessing import simple_text_preprocessing
 
 def download_weights(root='../../'):
+    '''Downloads weights from the GitHub release to models/ folder'''
     url = 'https://github.com/system205/PMLDL_Assignment1/releases/download/final-solution/trained_model.zip'
 
     response = requests.get(url, timeout=100000)
@@ -27,16 +29,20 @@ def download_weights(root='../../'):
 
     os.remove(f"{root}data/external/weights.zip")
 
-def predict(root, texts: list[str]):
+def predict(root, texts: list[str]) -> list[str]:
+    '''Takes a list of references and returnes the predictions after the model is loaded
+    The output is reproducible'''
+
     if not os.path.exists(f"{root}models/trained_model/pytorch_model.bin"):
         download_weights(root)
     
+    # Preprocess input text
     texts = [simple_text_preprocessing(text) for text in texts]
     
     prefix = "paraphrase from toxic to neutral: "
-
     checkpoint = f'{root}models/trained_model'
 
+    # Load model
     tokenizer = AutoTokenizer.from_pretrained(checkpoint)
     model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint)
 
@@ -44,7 +50,7 @@ def predict(root, texts: list[str]):
     for text in texts:
         t = prefix + text
         inputs = tokenizer(t, return_tensors="pt").input_ids
-        transformers.set_seed(42)
+        transformers.set_seed(42) # Reproduction
         outputs = model.generate(inputs, max_new_tokens=40, do_sample=True, top_k=30, top_p=0.95, )
 
         translation = tokenizer.decode(outputs[0], skip_special_tokens=True)

@@ -1,3 +1,4 @@
+'''Train simple hypothesis of swearing removal'''
 import sys
 import argparse
 
@@ -13,6 +14,7 @@ from urllib.request import urlopen
 from src.data.analysis.analyze import get_toxic_words
 
 def train(root="../../"):
+    '''Loads the train dataset and composes a list of toxic words combined with the ones known from the Internet'''
     train_dataset = load_train(root)
     toxic_counter = get_toxic_words(train_dataset, log=False)[0]
     

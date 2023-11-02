@@ -1,9 +1,13 @@
+'''Contains the evaluation function on dataframe'''
 import evaluate
 import pandas as pd
 import argparse
 
 
 def evaluate_dataframe(dataframe_file, predictions_column='predictions', separator=','):
+    '''Using sacreBLEU metric computes the score of
+    prediction and reference columns in dataframe'''
+    
     metric = evaluate.load("sacrebleu")
     dataframe = pd.read_csv(dataframe_file, sep=separator)
     references = list(dataframe['reference'])

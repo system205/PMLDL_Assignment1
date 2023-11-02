@@ -1,8 +1,10 @@
+'''Prepares the dataset or training'''
 import argparse
 from sklearn.model_selection import train_test_split
 import pandas as pd
 
 def filter(root, input_file='data/interim/preprocessed.csv'):
+    '''Picks a subset of a dataset taking shorter and more toxic references'''
     dataframe = pd.read_csv(root+input_file)
     dataframe = dataframe[dataframe['length_difference'] < 15]
     dataframe = dataframe[dataframe['trn_length'] < 70]
@@ -12,6 +14,7 @@ def filter(root, input_file='data/interim/preprocessed.csv'):
     return dataframe
 
 def split(root, dataframe, train_proportion=0.8, output_path='data/interim/'):
+    '''Splits the dataset'''
     train, val = train_test_split(dataframe, train_size=train_proportion, random_state=42)
     train.to_csv(f"{root+output_path}train.csv", index=False)
     val.to_csv(f"{root+output_path}val.csv", index=False)
